@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registracija</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleReg.css') }}">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Varela+Round&display=swap" rel="stylesheet">
+</head>
+<body>
+     <div class="nav">
+            <a href="/">Home</a>
+            <a href="/reg">Registracija</a>
+            <a href="/troskovi">Kalkulator troškova</a>
+            <a href="/kviz">Kviz</a>
+            <a href="/profil">Profil</a>
+            
+        </div>
+
+    <h2>Registracija</h2>
+<div class="page">
+    <div class="container1">
+        <form action="/reg" method="post" enctype="multipart/form-data">
+        <input type="text" name="ime" placeholder="Ime" required>
+        <input type="text" name="prezime" placeholder="Prezime" required>
+        <input type="text" name="jmbag" placeholder="JMBAG" required>
+        <input type="text" name="fakultet" placeholder="Fakultet" required>
+        <input type="text" name="smjer" placeholder="Smjer" required>
+        <label>Dodaj sliku profila:</label>
+        <input type="file" name="slika">
+        <button type="submit">Registriraj se</button>
+    </form>
+</div>
+</div>
+<footer><h1>Mihael Šušković @2025</h1></footer>
+</body>
+</html>
+

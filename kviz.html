@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kviz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleKviz.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Varela+Round&display=swap" rel="stylesheet">
+</head>
+<body>
+     <div class="nav">
+            <a href="/">Home</a>
+            <a href="/reg">Registracija</a>
+            <a href="/troskovi">Kalkulator troškova</a>
+            <a href="/kviz">Kviz</a>
+            <a href="/profil">Profil</a>
+            
+        </div>
+    <div class="quiz-container">
+        <h1>Kviz: Priprema za intervju</h1>
+        <form method="POST">
+            {% for p in pitanja %}
+                <div class="question">
+                    <p><strong>{{ loop.index }}. {{ p.pitanje }}</strong></p>
+                    <label><input type="radio" name="pitanje_{{ p.id }}" value="a"> A. {{ p.opcija_a }}</label><br>
+                    <label><input type="radio" name="pitanje_{{ p.id }}" value="b"> B. {{ p.opcija_b }}</label><br>
+                    <label><input type="radio" name="pitanje_{{ p.id }}" value="c"> C. {{ p.opcija_c }}</label><br>
+                    <label><input type="radio" name="pitanje_{{ p.id }}" value="d"> D. {{ p.opcija_d }}</label>
+                </div>
+            {% endfor %}
+            <button type="submit">Pošalji</button>
+        </form>
+    </div>
+</body>
+</html>

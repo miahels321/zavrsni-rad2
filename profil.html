@@ -1,0 +1,101 @@
+<!--
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korisnički profil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_profil.css') }}">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Varela+Round&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    
+
+   <div class="nav">
+            <a href="/">Home</a>
+            <a href="/reg">Registracija</a>
+            <a href="/troskovi">Kalkulator troškova</a>
+            <a href="/kviz">Kviz</a>
+            <a href="/profil">Profil</a>
+            
+        </div>
+
+    <div class="container">
+    
+        <div class="profile-box">
+            <img src="{{ url_for('static', filename='profilne_slike/' + korisnik.slika_profila) }}" alt="Profilna slika">
+            <p><strong>Ime:</strong> {{ korisnik.ime }}</p>
+            <p><strong>Prezime:</strong> {{ korisnik.prezime }}</p>
+            <p><strong>JMBAG:</strong> {{ korisnik.jmbag }}</p>
+            <p><strong>Fakultet:</strong> {{ korisnik.fakultet }}</p>
+            <p><strong>Smjer:</strong> {{ korisnik.smjer }}</p>
+        </div>
+
+        
+        <div class="forum-box">
+            <h3>Forum za {{ korisnik.fakultet }}</h3>
+            {% for p in poruke %}
+                <p><b>{{ p.jmbag_posiljatelja }}</b>: {{ p.sadrzaj }} <small>({{ p.vrijeme }})</small></p>
+            {% endfor %}
+            <form method="POST">
+                <textarea name="poruka" required></textarea>
+                <button type="submit">Pošalji</button>
+            </form>
+            <hr>
+            
+        </div>
+    </div>
+    <footer><h1>Mihael Šušković @2025</h1></footer>
+</body>
+</html>  -->
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korisnički profil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_profil.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Varela+Round&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="nav">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('registracija') }}">Registracija</a>
+        <a href="{{ url_for('troskovi') }}">Kalkulator troškova</a>
+        <a href="{{ url_for('kviz') }}">Kviz</a>
+        <a href="{{ url_for('profil') }}">Profil</a>
+        <a href="{{ url_for('logout') }}" class="logout">Odjava</a>
+    </div>
+
+    <div class="container">
+        <div class="profile-box">
+            <img src="{{ url_for('static', filename='profilne_slike/' + korisnik.slika_profila) }}" alt="Profilna slika">
+            <p><strong>Ime:</strong> {{ korisnik.ime }}</p>
+            <p><strong>Prezime:</strong> {{ korisnik.prezime }}</p>
+            <p><strong>JMBAG:</strong> {{ korisnik.jmbag }}</p>
+            <p><strong>Fakultet:</strong> {{ korisnik.fakultet }}</p>
+            <p><strong>Smjer:</strong> {{ korisnik.smjer }}</p>
+        </div>
+
+        <div class="forum-box">
+            <h3>Forum za {{ korisnik.fakultet }}</h3>
+            {% for p in poruke %}
+                <p><b>{{ p.jmbag_posiljatelja }}</b>: {{ p.sadrzaj }} <small>({{ p.vrijeme }})</small></p>
+            {% endfor %}
+            <form method="POST">
+                <textarea name="poruka" required></textarea>
+                <button type="submit">Pošalji</button>
+            </form>
+            <hr>
+        </div>
+    </div>
+
+    <footer><h1>Mihael Šušković @2025</h1></footer>
+</body>
+</html>

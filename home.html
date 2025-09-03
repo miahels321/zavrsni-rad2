@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studentski Popusti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/reg">Registracija</a>
+            <a href="/troskovi">Kalkulator troškova</a>
+            <a href="/kviz">Kviz</a>
+            <a href="/profil">Profil</a>
+            
+        </div>
+    
+        <div class="page-content">
+                       <div class="container1">
+    <h2>Ponuda poslova u struci</h2>
+    {% if poslovi %}
+        {% for posao in poslovi %}
+            <div class="posao">
+                <h3>{{ posao.naslov }}</h3>
+                <p><strong>Opis:</strong> {{ posao.opis }}</p>
+                <p><strong>Satnica:</strong> {{ posao.satnica }} €</p>
+                <p><strong>Kontakt:</strong> {{ posao.kontakt_email }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Prijavi se ili registriraj kako bi vidio ponude poslova u tvojoj struci.</p>
+    {% endif %}
+</div>
+
+    
+            <div class="container2">
+                <h3>Godišnji porezni kalkulator prema broju djece</h3>
+
+                <form id="porezni-form" onsubmit="izracunajPorez(); return false;">
+                    <label for="stopa">Odaberi stopu poreza:</label><br>
+                    <select id="stopa" name="stopa">
+                        <option value="23">23%</option>
+                        <option value="33">33%</option>
+                    </select><br><br>
+                
+                    <label for="dijete">Odaberi broj djece (1-9):</label><br>
+                    <select id="dijete" name="dijete">
+                        <option value="1">1. dijete</option>
+                        <option value="2">2. dijete</option>
+                        <option value="3">3. dijete</option>
+                        <option value="4">4. dijete</option>
+                        <option value="5">5. dijete</option>
+                        <option value="6">6. dijete</option>
+                        <option value="7">7. dijete</option>
+                        <option value="8">8. dijete</option>
+                        <option value="9">9. dijete</option>
+                    </select><br><br>
+                
+                    <label for="mjeseci">Broj mjeseci korištenja odbitka:</label><br>
+                    <input type="number" id="mjeseci" name="mjeseci" min="1" max="12" required><br><br>
+                
+                    <button type="submit">Izračunaj porez</button>
+                </form>
+                
+                <div id="rezultat-porez" style="margin-top: 15px; font-weight: bold;"></div>
+                
+                <script>
+                    
+                    const odbitciMj = {
+                        1: 300, 2: 420, 3: 600, 4: 840, 5: 1140,
+                        6: 1500, 7: 1920, 8: 2400, 9: 2940
+                    };
+                
+                    function izracunajPorez() {
+                        const stopa = parseInt(document.getElementById("stopa").value);
+                        const dijete = parseInt(document.getElementById("dijete").value);
+                        const mjeseci = parseInt(document.getElementById("mjeseci").value);
+                
+                        if (mjeseci < 1 || mjeseci > 12) {
+                            document.getElementById("rezultat-porez").innerText = "Molimo unesite broj mjeseci između 1 i 12.";
+                            return;
+                        }
+                
+                        const mjesecniOdbitak = odbitciMj[dijete];
+                        const ukupniOdbitak = mjesecniOdbitak * mjeseci;
+                        const porez = (stopa / 100) * ukupniOdbitak;
+                
+                        document.getElementById("rezultat-porez").innerText =
+                            `Za ${mjeseci} mjeseci korištenja odbitka za ${dijete}. dijete pri stopi od ${stopa}%,
+                            ukupan odbitak iznosi ${ukupniOdbitak.toFixed(2)} €, a pripadajući porez je ${porez.toFixed(2)} €.`;
+                    }
+                </script>
+                
+            </div>
+    
+            <div class="container3">
+                <h2>Tjedni popusti za studente</h2>
+                {% for popust in popusti %}
+                    <div class="popust">
+                        <h3>{{ popust['naslov'] }}</h3>
+                        <p>Popust: {{ popust['postotak'] }}%</p>
+                        <p>Vrijedi do: {{ popust['datum_isteka'] }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    
+<footer><h1>Mihael Šušković @2025</h1></footer>
+</body>
+</html>

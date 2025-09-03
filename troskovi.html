@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator troškova</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styletroskovi.css') }}">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+       
+    </style>
+</head>
+<body>
+    <div class="nav">
+            <a href="/">Home</a>
+            <a href="/reg">Registracija</a>
+            <a href="/troskovi">Kalkulator troškova</a>
+            <a href="/kviz">Kviz</a>
+            <a href="/profil">Profil</a>
+            
+        </div>
+<div class="container">
+    <h2>Kalkulator troškova</h2>
+
+    <div class="section">
+        <label>Budžet (€): <input type="number" id="budget" placeholder="npr. 300" /></label>
+    </div>
+
+    <div class="section">
+        <strong>Kako želiš obračunati prioritete?</strong><br>
+        <label><input type="radio" name="mode" value="auto" checked> Automatski (maksimalan broj koji stane u budžet)</label><br>
+        <label><input type="radio" name="mode" value="manual"> Ručno unosim broj puta</label>
+    </div>
+
+    <div id="expenses"></div>
+    <button onclick="addExpense()">+ Dodaj trošak</button>
+    <button onclick="calculate()">Izračunaj</button>
+
+    <div id="result" class="result"></div>
+    <div id="job-suggestion" class="result"></div>
+</div>
+<footer><h1>Mihael Šušković @2025</h1></footer>
+<script>
+let expenseCount = 0;
+
+function addExpense(name = "", value = "", priority = false, count = "") {
+    const div = document.createElement('div');
+    div.className = 'expense-item';
+    div.innerHTML = `
+        <input type="text" id="name-${expenseCount}" placeholder="Naziv" value="${name}">
+        <input type="number" id="value-${expenseCount}" placeholder="Cijena" value="${value}">
+        <label><input type="checkbox" id="priority-${expenseCount}" ${priority ? 'checked' : ''}> Prioritet</label>
+        <label>Broj puta: <input type="number" id="count-${expenseCount}" value="${count}" min="1"></label>
+    `;
+    document.getElementById("expenses").appendChild(div);
+    expenseCount++;
+}
+
+window.onload = () => {
+    addExpense("Kava", 2, true, 10);
+    addExpense("Izlasci", 30, true, 5);
+    addExpense("Odjeća", 50, false, 1);
+    addExpense("Gorivo", 60, false, 1);
+};
+
+function getSelectedMode() {
+    return document.querySelector('input[name="mode"]:checked').value;
+}
+
+function calculate() {
+    const budget = parseFloat(document.getElementById("budget").value);
+    const mode = getSelectedMode();
+
+    if (isNaN(budget) || budget <= 0) {
+        alert("Unesi ispravan budžet.");
+        return;
+    }
+
+    const priorities = [];
+    const others = [];
+    let summary = [];
+    let total = 0;
+
+    for (let i = 0; i < expenseCount; i++) {
+        const name = document.getElementById(`name-${i}`).value;
+        const value = parseFloat(document.getElementById(`value-${i}`).value);
+        const isPriority = document.getElementById(`priority-${i}`).checked;
+        const countInput = parseInt(document.getElementById(`count-${i}`).value);
+
+        if (!name || isNaN(value) || value <= 0) continue;
+
+        const item = { name, value, isPriority, countInput };
+        if (isPriority) priorities.push(item);
+        else others.push(item);
+    }
+
+    
+    for (const item of priorities) {
+        let count = 0;
+        if (mode === "manual" && !isNaN(item.countInput) && item.countInput > 0) {
+            count = item.countInput;
+        } else {
+            count = Math.floor((budget - total) / item.value);
+        }
+        const cost = count * item.value;
+        total += cost;
+        summary.push(`<li><strong>${item.name}</strong> × ${count} → ${cost.toFixed(2)} €</li>`);
+    }
+
+    
+    for (const item of others) {
+        const count = isNaN(item.countInput) || item.countInput <= 0 ? 1 : item.countInput;
+        const cost = count * item.value;
+        total += cost;
+        summary.push(`<li><strong>${item.name}</strong> × ${count} → ${cost.toFixed(2)} €</li>`);
+    }
+
+    const deficit = total - budget;
+
+    document.getElementById("result").innerHTML = `
+        <h3>Rezultat</h3>
+        <p><strong>Ukupno potrošeno:</strong> ${total.toFixed(2)} €</p>
+        <p><strong>Budžet:</strong> ${budget.toFixed(2)} €</p>
+        <ul>${summary.join("")}</ul>
+    `;
+
+    if (deficit > 0) {
+        fetch("/api/posao", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ deficit })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById("job-suggestion").innerHTML = `<p class="not-enough">${data.error}</p>`;
+            } else {
+                document.getElementById("job-suggestion").innerHTML = `
+                    <h4>💼 Nemaš dovoljno novca!</h4>
+                    <p>Preporučeni posao: <strong>${data.naslov}</strong> (${data.satnica} €/h)</p>
+                    <p>${data.opis}</p>
+                    <p>Potrebno odraditi: <strong>${data.sati} sati</strong></p>
+                    <p>Kontakt: <a href="mailto:${data.kontakt}">${data.kontakt}</a></p>
+                `;
+            }
+        });
+    } else {
+        document.getElementById("job-suggestion").innerHTML = "<p>✅ Imaš dovoljno novca za sve svoje planove!</p>";
+    }
+}
+</script>
+</body>
+</html>

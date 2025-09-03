@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezultat kviza</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleRez.css') }}">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Varela+Round&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>🎯 Rezultati kviza</h2>
+        <p><strong>Točno:</strong> {{ rezultat }} / {{ ukupno }}</p>
+        <hr>
+        <h3>📋 Tvoji odgovori:</h3>
+        <ul class="odgovori-lista">
+            {% for p_id, korisnik_odgovor, tocan_odgovor in odgovori %}
+                <li class="{% if korisnik_odgovor.lower() == tocan_odgovor.lower() %}tocno{% else %}netocno{% endif %}">
+                    <strong>Pitanje ID {{ p_id }}</strong> – Tvoj odgovor: <span>{{ korisnik_odgovor | upper }}</span> | Točan: <span>{{ tocan_odgovor | upper }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <a class="natrag-btn" href="/profil">🔙 Natrag na profil</a>
+    </div>
+</body>
+</html>

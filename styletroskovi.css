@@ -1,0 +1,195 @@
+/* styletroskovi.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f8;
+    color: #333;
+    margin: 0; /* Uklonjen padding da se nav i footer protežu cijelom širinom */
+    padding: 0;
+}
+
+.nav {
+    background-color: #5A9EE7;
+    padding: 15px;
+    height: 60px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+     font-family: "Varela Round", sans-serif;
+}
+
+
+/* --- Prilagodi samo .nav a i .nav a:hover --- */
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 36px;
+    position: relative; /* Potrebno za pozicioniranje */
+    z-index: 1; /* Postavlja tekst iznad pozadine */
+    padding: 5px 10px;
+    transition: color 0.3s ease; /* Glatka promjena boje teksta */
+}
+
+/* --- Prilagodi samo .nav a i .nav a:hover --- */
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 36px;
+    position: relative; /* Potrebno za pozicioniranje */
+    z-index: 1; /* Postavlja tekst iznad pozadine */
+    padding: 5px 10px;
+    transition: color 0.3s ease; /* Glatka promjena boje teksta */
+}
+
+/* Kreiramo pozadinski element */
+.nav a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0; /* Početna visina je 0 */
+    background-color: #ffffff; /* Boja pozadine */
+    z-index: -1; /* Postavlja pozadinu iza teksta */
+    transition: height 0.3s ease-out; /* Animacija visine */
+}
+
+.nav a:hover::before {
+    height: 100%; /* Na hover, visina postaje 100% */
+}
+
+.nav a:hover {
+    color: #49A1FF; /* Promijeni boju teksta na hover za kontrast */
+}
+
+/* === POSTOJEĆI I POBOLJŠANI STILOVI ZA KALKULATOR === */
+.container {
+    max-width: 800px;
+    margin: 40px auto; /* Dodan gornji i donji margin da se odvoji od nav i footera */
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    height: auto;
+}
+
+h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #fdfdfd;
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+    height: auto;
+}
+
+.expense-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.expense-item:last-child {
+    border-bottom: none;
+}
+
+input[type="text"], input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="number"] {
+    width: 100px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+button {
+    padding: 12px 25px;
+    margin-top: 10px;
+    margin-right: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:first-of-type {
+    background-color: #5cb85c; /* Zeleni gumb za dodavanje */
+}
+
+button:first-of-type:hover {
+    background-color: #4cae4c;
+}
+
+.result, #job-suggestion {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 5px solid #ccc;
+}
+
+#job-suggestion p {
+    margin: 5px 0;
+}
+
+#job-suggestion {
+    border-left-color: #3498db;
+}
+
+.not-enough {
+    color: #d32f2f; 
+    font-weight: bold;
+    border-left-color: #d32f2f !important;
+}
+
+footer {
+   width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #747474;
+    color: white;
+    position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+ 
+ } 
+
+footer h1 {
+    
+    margin: 0;
+    font-weight: normal;
+}

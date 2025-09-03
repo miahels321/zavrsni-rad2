@@ -1,0 +1,73 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    min-height: 100vh;
+}
+
+.container {
+    background: white;
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 700px;
+}
+
+h2 {
+    color: #2c3e50;
+    font-size: 28px;
+}
+
+h3 {
+    color: #34495e;
+    margin-top: 30px;
+}
+
+.odgovori-lista {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.odgovori-lista li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-left: 6px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+}
+
+.odgovori-lista li.tocno {
+    border-color: #2ecc71;
+    background-color: #eafaf1;
+}
+
+.odgovori-lista li.netocno {
+    border-color: #e74c3c;
+    background-color: #fdecea;
+}
+
+.natrag-btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 24px;
+    background-color: #2980b9;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.natrag-btn:hover {
+    background-color: #1c5980;
+}

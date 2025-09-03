@@ -1,0 +1,109 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f0f0f5;
+    margin: 0;
+    padding: 0;
+}
+.nav {
+    background-color: #5A9EE7;
+    padding: 15px;
+    height: 60px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+     font-family: "Varela Round", sans-serif;
+}
+
+
+/* --- Prilagodi samo .nav a i .nav a:hover --- */
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 36px;
+    position: relative; /* Potrebno za pozicioniranje */
+    z-index: 1; /* Postavlja tekst iznad pozadine */
+    padding: 5px 10px;
+    transition: color 0.3s ease; /* Glatka promjena boje teksta */
+}
+
+/* --- Prilagodi samo .nav a i .nav a:hover --- */
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 36px;
+    position: relative; /* Potrebno za pozicioniranje */
+    z-index: 1; /* Postavlja tekst iznad pozadine */
+    padding: 5px 10px;
+    transition: color 0.3s ease; /* Glatka promjena boje teksta */
+}
+
+/* Kreiramo pozadinski element */
+.nav a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0; /* Početna visina je 0 */
+    background-color: #ffffff; /* Boja pozadine */
+    z-index: -1; /* Postavlja pozadinu iza teksta */
+    transition: height 0.3s ease-out; /* Animacija visine */
+}
+
+.nav a:hover::before {
+    height: 100%; /* Na hover, visina postaje 100% */
+}
+
+.nav a:hover {
+    color: #49A1FF; /* Promijeni boju teksta na hover za kontrast */
+}
+
+.quiz-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+.question p {
+    font-size: 18px;
+    color: #444;
+}
+
+label {
+    display: block;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 30px;
+    font-size: 18px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #219150;
+}
